@@ -7,6 +7,7 @@ const data = require("../data.json");
 router.get("/purchasedCustomers", (req, res, next) => {
   try {
     const purchasedCustomers = [];
+    //Getting the customer with comparing the customerId with purchases object customerId
     data.purchases.forEach((purchasedObj) =>
       purchasedCustomers.push(
         ...data.customers.filter(
@@ -25,6 +26,8 @@ router.get("/purchasedCustomers", (req, res, next) => {
 router.get("/purchasedCustomersMoreThanOnce", (req, res, next) => {
   try {
     const duplicateCustomerIds = [];
+    //Getting the customerIds who purchased products more than once
+    //Each customer with each purchasedId comparing with rest of the purchasedIds
     data.purchases.forEach((purchasedObj) => {
       purchasedObj.purchases.forEach((purchasedIdObj, index, arr) => {
         const productIds = arr
@@ -35,6 +38,7 @@ router.get("/purchasedCustomersMoreThanOnce", (req, res, next) => {
         }
       });
     });
+    //Filtering the customer information from data.customers with customerId
     const customersDataWithMoreThansOnce = data.customers.filter(
       (customerObj) =>
         [...new Set(duplicateCustomerIds)].includes(customerObj.id)
@@ -48,9 +52,13 @@ router.get("/purchasedCustomersMoreThanOnce", (req, res, next) => {
 /*Get Customers With ProductPurchase */
 router.get("/customersWithProductPurchase", (req, res, next) => {
   try {
+    //Getting the unique customerIds
     const customerIds = [...new Set(data.customers.map((obj) => obj.id))];
+
+    //Getting the unique productIds
     const productIds = [...new Set(data.products.map((obj) => obj.id))];
 
+    //Getting the only purchased customerIds
     const purchaseCustomerIds = data.purchases.map(
       (purchasedObj) => purchasedObj.customerId
     );
@@ -59,35 +67,34 @@ router.get("/customersWithProductPurchase", (req, res, next) => {
       (id) => !purchaseCustomerIds.includes(id)
     );
 
+    //Finding the customer who bought products number of times with customer name and pushing that object into array
     const customersWithProductPurchase = [];
-
-    customerIds.forEach((cusId) => {
-      data.purchases.forEach((purchasedObj) => {
-        if (purchasedObj.customerId === cusId) {
-          productIds.forEach((productId) => {
-            let count = 0;
-            purchasedObj.purchases.forEach((purchasedIdObj) => {
-              if (productId === purchasedIdObj.productId) {
-                count++;
-              }
-            });
-            const customer = data.customers.find(
-              (customer) => customer.id === purchasedObj.customerId
-            );
-            if (customer) {
-              customersWithProductPurchase.push({
-                customerName: customer.firstname + " " + customer.lastname,
-                productName: data.products.find(
-                  (product) => product.id === productId
-                ).name,
-                numberOfPurchases: count,
-              });
+    data.purchases.forEach((purchasedObj) => {
+      if (customerIds.includes(purchasedObj.customerId)) {
+        productIds.forEach((productId) => {
+          let count = 0;
+          purchasedObj.purchases.forEach((purchasedIdObj) => {
+            if (productId === purchasedIdObj.productId) {
+              count++;
             }
           });
-        }
-      });
+          const customer = data.customers.find(
+            (customer) => customer.id === purchasedObj.customerId
+          );
+          if (customer) {
+            customersWithProductPurchase.push({
+              customerName: customer.firstname + " " + customer.lastname,
+              productName: data.products.find(
+                (product) => product.id === productId
+              ).name,
+              numberOfPurchases: count,
+            });
+          }
+        });
+      }
     });
 
+    //Finding the customer who don't buy any products and pushing into array
     NotBuyingCustomersIds.forEach((Id) => {
       const customer = data.customers.find((customer) => customer.id === Id);
       data.products.forEach((ProdObj) => {
