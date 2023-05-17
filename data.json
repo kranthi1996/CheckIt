@@ -1,0 +1,95 @@
+{
+  "customers": [
+    {
+      "id": "c1",
+      "firstname": "Isa",
+      "lastname": "Smith"
+    },
+    {
+      "id": "c2",
+      "firstname": "Lennon",
+      "lastname": "Willis"
+    },
+    {
+      "id": "c3",
+      "firstname": "Carter",
+      "lastname": "Cooke"
+    },
+    {
+      "id": "c4",
+      "firstname": "Rohan",
+      "lastname": "Harris"
+    }
+  ],
+  "products": [
+    {
+      "id": "p1",
+      "name": "PlayStation 5"
+    },
+    {
+      "id": "p2",
+      "name": "Xbox Series X"
+    },
+    {
+      "id": "p3",
+      "name": "Nintendo Switch"
+    },
+    {
+      "id": "p4",
+      "name": "Valve Steam Deck"
+    }
+  ],
+  "purchases": [
+    {
+      "customerId": "c1",
+      "purchases": [
+        {
+          "productId": "p2",
+          "purchasedAt": "2022-01-02T00:00:00.000Z"
+        },
+        {
+          "productId": "p2",
+          "purchasedAt": "2022-02-20T00:00:00.000Z"
+        },
+        {
+          "productId": "p1",
+          "purchasedAt": "2022-04-16T00:00:00.000Z"
+        },
+        {
+          "productId": "p1",
+          "purchasedAt": "2022-04-16T00:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "customerId": "c3",
+      "purchases": [
+        {
+          "productId": "p4",
+          "purchasedAt": "2022-01-02T00:00:00.000Z"
+        },
+        {
+          "productId": "p4",
+          "purchasedAt": "2022-04-16T00:00:00.000Z"
+        },
+        {
+          "productId": "p3",
+          "purchasedAt": "2022-04-16T00:00:00.000Z"
+        },
+        {
+          "productId": "p1",
+          "purchasedAt": "2022-04-16T00:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "customerId": "c2",
+      "purchases": [
+        {
+          "productId": "p1",
+          "purchasedAt": "2022-04-16T00:00:00.000Z"
+        }
+      ]
+    }
+  ]
+}
