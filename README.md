@@ -10,4 +10,4 @@ sudo yarn start
 Server runs the port 3000
 
 To tun the test cases 
-yarn yarn test
+sudo yarn yarn test
