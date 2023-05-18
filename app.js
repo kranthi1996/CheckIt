@@ -7,6 +7,7 @@ const app = express();
 
 app.use(express.json());
 
+app.set("view engine", "jade");
 
 app.use('/', indexRouter);
 
